@@ -1,5 +1,6 @@
 import React from "react";
 import { Card } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 export default function Product({ product }) {
   return (
@@ -9,11 +10,12 @@ export default function Product({ product }) {
         imgAlt={product.title}
         imgSrc={product.images}
       >
-        <a href="#">
+        <Link to={`${product.id}`}>
           <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
             {product.title}
           </h5>
-        </a>
+        </Link>
+
         <div className="mb-5 mt-2.5 flex items-center">
           <svg
             className="h-5 w-5 text-yellow-300"
