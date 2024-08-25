@@ -7,6 +7,8 @@ import NotFound from "./Components/NotFound/NotFound";
 import { ContextProvioder } from "./Components/Context/Context";
 import ProductDetail from "./Components/Products/ProductDetail";
 import Dashboard from "./Components/Dashboard/Dashboard";
+import ProductDashboard from "./Components/Dashboard/ProductDashboard";
+import AdminLayout from "./Components/Layout/AdminLayout";
 
 function App() {
   let router = createBrowserRouter([
@@ -18,9 +20,19 @@ function App() {
         { path: "login", element: <Login /> },
         { path: "products", element: <Products /> },
         { path: ":id", element: <ProductDetail /> },
-        { path: "dashboard", element: <Dashboard /> },
 
         { path: "*", element: <NotFound /> },
+      ],
+    },
+    {
+      path: "admin-dashboard",
+      element: <AdminLayout />,
+      children: [
+        { path: "products", element: <ProductDashboard /> },
+        {
+          index: true,
+          element: <Dashboard />,
+        },
       ],
     },
   ]);

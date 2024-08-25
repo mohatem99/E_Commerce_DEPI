@@ -41,7 +41,7 @@ export default function Login() {
       console.log("Login successful");
 
       // Redirect to dashboard
-      navigate("/dashboard");
+      navigate("/admin-dashboard");
     } else {
       console.log("Login failed");
     }
