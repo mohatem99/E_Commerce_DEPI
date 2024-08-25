@@ -2,8 +2,9 @@ import React, { useContext, useState } from "react";
 import { Context } from "../Context/Context";
 import axios from "axios";
 import Loading from "../Loading/Loading";
+import { Link } from "react-router-dom";
 
-const ProductDashboard = () => {
+export default function ProductDashboard() {
   const { products, setProducts, loading } = useContext(Context);
   const [newProduct, setNewProduct] = useState({
     title: "",
@@ -18,7 +19,7 @@ const ProductDashboard = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://dummyjson.com/products/${id}`);
+      await axios.delete("https://dummyjson.com/products/${id}");
       setProducts(products.filter((product) => product.id !== id));
     } catch (error) {
       console.error("Error deleting product:", error);
@@ -116,20 +117,16 @@ const ProductDashboard = () => {
                 <td className="px-4 py-2">{product.id}</td>
                 <td className="px-4 py-2">{product.title}</td>
                 <td className="px-4 py-2">${product.price}</td>
-                <td className="px-4 py-2">{product.description}</td>
+                <td className="px-4 py-2">
+                  {product.description.substring(0, 100)}...
+                </td>
                 <td className="px-4 py-2 flex space-x-2">
-                  <button
-                    onClick={() => handleEdit(product.id)}
-                    className="bg-yellow-500 text-white px-2 py-1 rounded-lg hover:bg-yellow-600"
+                  <Link
+                    to={`${product.id}`}
+                    className="bg-blue-500 text-white px-2 py-1 rounded-lg hover:bg-blue-600"
                   >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(product.id)}
-                    className="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-600"
-                  >
-                    Delete
-                  </button>
+                    Details
+                  </Link>
                 </td>
               </tr>
             ))}
@@ -138,6 +135,4 @@ const ProductDashboard = () => {
       </div>
     </div>
   );
-};
-
-export default ProductDashboard;
+}

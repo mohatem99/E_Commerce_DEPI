@@ -9,6 +9,8 @@ import ProductDetail from "./Components/Products/ProductDetail";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import ProductDashboard from "./Components/Dashboard/ProductDashboard";
 import AdminLayout from "./Components/Layout/AdminLayout";
+import ProductDetails from "./Components/Dashboard/ProductDetails";
+import EditProduct from "./Components/Dashboard/EditProduct";
 
 function App() {
   let router = createBrowserRouter([
@@ -19,7 +21,7 @@ function App() {
         { index: true, element: <Home /> },
         { path: "login", element: <Login /> },
         { path: "products", element: <Products /> },
-        { path: ":id", element: <ProductDetail /> },
+        { path: "products/:id", element: <ProductDetail /> },
 
         { path: "*", element: <NotFound /> },
       ],
@@ -28,11 +30,13 @@ function App() {
       path: "admin-dashboard",
       element: <AdminLayout />,
       children: [
-        { path: "products", element: <ProductDashboard /> },
         {
           index: true,
           element: <Dashboard />,
         },
+        { path: "products", element: <ProductDashboard /> },
+        { path: "products/:id", element: <ProductDetails /> },
+        { path: "edit/:id", element: <EditProduct /> },
       ],
     },
   ]);

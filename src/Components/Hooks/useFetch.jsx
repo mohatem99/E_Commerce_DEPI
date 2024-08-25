@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { api } from "../Utils/axios.js";
+import { api } from "../utils/axios.js";
 
 function useFetch(params = "", query = "", tag = "") {
   const [data, setData] = useState([]);
@@ -7,21 +7,23 @@ function useFetch(params = "", query = "", tag = "") {
 
   const fetchData = async () => {
     try {
-      const res = await api.get(`${params}`);
+      const res = await api.get(params);
       if (res.data.hasOwnProperty("products")) {
-        setData(res.data.posts);
+        setData(res.data.products);
       } else {
         setData(res.data);
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
     } finally {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchData();
   }, [query]);
+
   return [data, loading];
 }
 
