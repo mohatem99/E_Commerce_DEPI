@@ -11,6 +11,7 @@ import ProductDashboard from "./Components/Dashboard/ProductDashboard";
 import AdminLayout from "./Components/Layout/AdminLayout";
 import ProductDetails from "./Components/Dashboard/ProductDetails";
 import EditProduct from "./Components/Dashboard/EditProduct";
+import AddProduct from "./Components/Dashboard/AddProduct";
 
 function App() {
   let router = createBrowserRouter([
@@ -35,6 +36,7 @@ function App() {
           element: <Dashboard />,
         },
         { path: "products", element: <ProductDashboard /> },
+        { path: "add-product", element: <AddProduct /> },
         { path: "products/:id", element: <ProductDetails /> },
         { path: "edit/:id", element: <EditProduct /> },
       ],

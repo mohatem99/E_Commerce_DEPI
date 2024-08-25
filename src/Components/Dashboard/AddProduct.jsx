@@ -2,27 +2,29 @@ import React, { useState } from "react";
 import { api } from "../utils/axios";
 
 export default function AddProduct() {
-  const { products, setProducts } = useContext(Context);
-  const [newProduct, setNewProduct] = useState({
-    title: "",
-    price: "",
-    description: "",
-  });
+  //   const { products, setProducts } = useContext(Context);
+  //   const [newProduct, setNewProduct] = useState({
+  //     title: "",
+  //     price: "",
+  //     description: "",
+  //   });
 
-  const handleAddProduct = async (e) => {
-    e.preventDefault();
-    try {
-      const { data } = await api.post("/add", newProduct);
-      setProducts([...products, data]);
-      setNewProduct({ title: "", price: "", description: "" });
-    } catch (error) {
-      console.error("Error adding product:", error);
-    }
-  };
+  //   const handleAddProduct = async (e) => {
+  //     e.preventDefault();
+  //     try {
+  //       const { data } = await api.post("/add", newProduct);
+  //       setProducts([...products, data]);
+  //       setNewProduct({ title: "", price: "", description: "" });
+  //     } catch (error) {
+  //       console.error("Error adding product:", error);
+  //     }
+  //   };
 
   return (
     <>
-      <form
+      <h1>Add Product</h1>
+
+      {/* <form
         onSubmit={handleAddProduct}
         className="bg-white shadow-md rounded-lg p-6 mb-6"
       >
@@ -68,7 +70,7 @@ export default function AddProduct() {
         >
           Add Product
         </button>
-      </form>
+      </form> */}
     </>
   );
 }
