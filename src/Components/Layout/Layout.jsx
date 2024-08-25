@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Button } from "flowbite-react";
-import Header from "./Header/Header";
+import Header from "../Header/Header";
 function Layout() {
   return (
     <div className="container min-h-screen mx-auto">
