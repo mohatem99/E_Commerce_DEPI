@@ -16,8 +16,8 @@ function AddProduct({ isOpen, onClose, onAddProduct }) {
     category: "",
     brand: "",
     price: "",
-    details: "",
-    image: null,
+    description: "",
+    image: [],
   });
 
   const handleInputChange = (e) => {
@@ -32,6 +32,14 @@ function AddProduct({ isOpen, onClose, onAddProduct }) {
 
   const handleSubmit = () => {
     onAddProduct(productData);
+    setProductData({
+      name: "",
+      category: "",
+      brand: "",
+      price: "",
+      description: "",
+      images: [],
+    });
     onClose();
   };
 
@@ -85,11 +93,11 @@ function AddProduct({ isOpen, onClose, onAddProduct }) {
             />
           </div>
           <div>
-            <Label htmlFor="details">Product Details</Label>
+            <Label htmlFor="description">Product description</Label>
             <Textarea
-              id="details"
-              name="details"
-              value={productData.details}
+              id="description"
+              name="description"
+              value={productData.description}
               onChange={handleInputChange}
             />
           </div>
