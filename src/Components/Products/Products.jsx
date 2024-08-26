@@ -3,6 +3,7 @@ import { ProductsContext } from "../../Context/ProductsContext";
 import ProductCard from "./ProductCard";
 import FilterComponent from "../Filters/FilterComponent";
 import Loader from "../Loader/Loader";
+import { Pagination } from "flowbite-react";
 
 function Products() {
   const { products, loading } = useContext(ProductsContext);

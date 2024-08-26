@@ -5,15 +5,16 @@ export const ProductsContext = createContext();
 
 export const ProductsProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
-
+  const [pageCount, setPageCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [orderBy, setOrderBy] = useState("");
 
   const fetchProducts = async () => {
     try {
       const res = await api.get("/products");
-
+      console.log(res.data.total);
       setProducts(res.data.products);
+      setPageCount(Math.ceil(res.data.total / 30));
     } catch (e) {
       console.log(e.message);
     } finally {
@@ -26,9 +27,8 @@ export const ProductsProvider = ({ children }) => {
 
   const filterComponetOrders = async (val) => {
     try {
-      console.log(orderBy);
       const res = await api.get(`/products?sortBy=title&order=${val}`);
-      console.log(res);
+      setPageCount(res.data.total / 30);
       setProducts(res.data.products);
     } catch (e) {
       console.log(e.message);
@@ -42,6 +42,7 @@ export const ProductsProvider = ({ children }) => {
       const res = await api.get(`/products/search?q=${query}`);
 
       setProducts(res.data.products);
+      setPageCount(res.data.total / 30);
     } catch (e) {
       console.log(e.message);
     } finally {
@@ -53,6 +54,22 @@ export const ProductsProvider = ({ children }) => {
     fetchProductsSearch(query);
   };
 
+  const productsPagination = async (page) => {
+    try {
+      let limit = 30;
+
+      let skip = (page - 1) * limit;
+
+      const res = await api.get(`/products?limit=${limit}&skip=${skip}`);
+
+      setProducts(res.data.products);
+      setPageCount(res.data.total / 30);
+    } catch (e) {
+      console.log(e.message);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <ProductsContext.Provider
       value={{
@@ -62,6 +79,8 @@ export const ProductsProvider = ({ children }) => {
         filterComponetOrders,
         loading,
         handleSearch,
+        productsPagination,
+        pageCount,
       }}
     >
       {children}
