@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Modal,
   Button,
@@ -7,8 +7,10 @@ import {
   Select,
   Textarea,
 } from "flowbite-react";
+import { ProductsContext } from "../../Context/ProductsContext";
 
 function AddProduct({ isOpen, onClose, onAddProduct }) {
+  const { categories } = useContext(ProductsContext);
   const [productData, setProductData] = useState({
     name: "",
     category: "",
@@ -56,8 +58,11 @@ function AddProduct({ isOpen, onClose, onAddProduct }) {
               onChange={handleInputChange}
             >
               <option value="">Select category</option>
-              <option value="Electronics">Electronics</option>
-              {/* Add more categories as needed */}
+              {categories.map((category, index) => (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              ))}
             </Select>
           </div>
           <div>
