@@ -14,16 +14,14 @@ function Header() {
         <div className="flex md:order-2">
           <NavLink
             to="login"
-            className="hover:bg-cyan-700 p-3 rounded-md  hovertext-white font-semibold "
+            className="hover:bg-cyan-700 p-3 rounded-md dark:text-white hovertext-white font-semibold "
           >
             Admin Login
           </NavLink>
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <NavLink to="" end>
-            Home
-          </NavLink>
+          <NavLink to="">Home</NavLink>
 
           <NavLink to="/compare">Compare</NavLink>
           <NavLink to="cart">

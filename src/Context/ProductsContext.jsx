@@ -5,8 +5,7 @@ export const ProductsContext = createContext();
 
 export const ProductsProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [pageCount, setPageCount] = useState(0);
+
   const [loading, setLoading] = useState(true);
   const [orderBy, setOrderBy] = useState("");
 
@@ -24,21 +23,6 @@ export const ProductsProvider = ({ children }) => {
   };
   useEffect(() => {
     fetchProducts();
-  }, []);
-  // get all categories
-  const fetchCategories = async () => {
-    try {
-      const res = await api.get("/products/category-list");
-
-      setCategories(res.data);
-    } catch (e) {
-      console.log(e.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-  useEffect(() => {
-    fetchCategories();
   }, []);
 
   const filterComponetOrders = async (val) => {
@@ -95,9 +79,6 @@ export const ProductsProvider = ({ children }) => {
         filterComponetOrders,
         loading,
         handleSearch,
-        productsPagination,
-        pageCount,
-        categories,
       }}
     >
       {children}
