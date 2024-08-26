@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../../Api/axios";
 import Slider from "react-slick";
 import Loader from "../Loader/Loader";
+import { CompareContext } from "../../Context/CompareContext";
+import { Button } from "flowbite-react";
 
 function ProductDetails() {
   const [procuctDetails, setProductDetails] = useState(null);
+
+  const { addToCompare, compareProducts } = useContext(CompareContext);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const fetChProduct = async () => {
@@ -127,8 +131,8 @@ function ProductDetails() {
               </div>
             </div>
             <div className="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
-              <a
-                href="#"
+              <Button
+                onClick={() => addToCompare(procuctDetails)}
                 title=""
                 className="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                 role="button"
@@ -151,7 +155,7 @@ function ProductDetails() {
                   />
                 </svg>
                 Add to Compare
-              </a>
+              </Button>
               <button
                 href="#"
                 title=""
