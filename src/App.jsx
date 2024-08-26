@@ -5,7 +5,7 @@ import { ProductsProvider } from "./Context/ProductsContext";
 import { CartProvider } from "./Context/CartContext";
 import Cart from "./Pages/Cart";
 import ProductDetails from "./Components/Products/ProductDetails";
-import CheckOut from "./Pages/CheckOut";
+import CheckOut from "./Components/Checkout/CheckOut";
 import Login from "./Components/Login/Login";
 import AdminLayout from "./Components/Layout/AdminLayout";
 import Dashboard from "./Components/Dashboard/Dashboard";
