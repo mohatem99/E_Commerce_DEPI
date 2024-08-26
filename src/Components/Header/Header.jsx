@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 function Header() {
   return (
     <div>
-      {" "}
       <Navbar fluid rounded className="shadow-md">
         <Navbar.Brand>
           <img
@@ -22,8 +21,11 @@ function Header() {
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <NavLink to="">Home</NavLink>
+          <NavLink to="" end>
+            Home
+          </NavLink>
 
+          <NavLink to="/compare">Compare</NavLink>
           <NavLink to="cart">
             <svg
               className="w-7 h-7 text-gray-800 dark:text-white"

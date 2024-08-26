@@ -6,7 +6,10 @@ function CompareProductsPage() {
   const { compareProducts, loading } = useContext(CompareContext);
 
   if (loading) {
-    <Loader />;
+    return <Loader />;
+  }
+  if (compareProducts?.length < 2) {
+    return <h3 className="mt-5">No Products To Compare</h3>;
   }
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-7">
