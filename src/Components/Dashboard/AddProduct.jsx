@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Modal,
   Button,
@@ -7,15 +7,17 @@ import {
   Select,
   Textarea,
 } from "flowbite-react";
+import { ProductsContext } from "../../Context/ProductsContext";
 
 function AddProduct({ isOpen, onClose, onAddProduct }) {
+  const { categories } = useContext(ProductsContext);
   const [productData, setProductData] = useState({
     name: "",
     category: "",
     brand: "",
     price: "",
-    details: "",
-    image: null,
+    description: "",
+    image: [],
   });
 
   const handleInputChange = (e) => {
@@ -30,6 +32,14 @@ function AddProduct({ isOpen, onClose, onAddProduct }) {
 
   const handleSubmit = () => {
     onAddProduct(productData);
+    setProductData({
+      name: "",
+      category: "",
+      brand: "",
+      price: "",
+      description: "",
+      images: [],
+    });
     onClose();
   };
 
@@ -56,8 +66,11 @@ function AddProduct({ isOpen, onClose, onAddProduct }) {
               onChange={handleInputChange}
             >
               <option value="">Select category</option>
-              <option value="Electronics">Electronics</option>
-              {/* Add more categories as needed */}
+              {categories.map((category, index) => (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              ))}
             </Select>
           </div>
           <div>
@@ -80,11 +93,11 @@ function AddProduct({ isOpen, onClose, onAddProduct }) {
             />
           </div>
           <div>
-            <Label htmlFor="details">Product Details</Label>
+            <Label htmlFor="description">Product description</Label>
             <Textarea
-              id="details"
-              name="details"
-              value={productData.details}
+              id="description"
+              name="description"
+              value={productData.description}
               onChange={handleInputChange}
             />
           </div>

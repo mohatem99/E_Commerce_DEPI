@@ -3,6 +3,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../Hooks/useFetch";
 import { api } from "../../utils/axios";
 import Loader from "../Loader/Loader";
+import Swal from "sweetalert2";
+import { Button } from "flowbite-react";
 
 export default function ProductDetailsDashboard() {
   const { id } = useParams();
@@ -11,14 +13,15 @@ export default function ProductDetailsDashboard() {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    try {
-      await api.delete(`products/${id}`);
-      navigate("/products");
-    } catch (error) {
-      console.error("Error deleting product:", error);
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      try {
+        await api.delete(`${id}`);
+        navigate("/admin-dashboard/products"); // Redirect to the products list
+      } catch (error) {
+        console.error("Error deleting product:", error);
+      }
     }
   };
-
   if (loading) return <Loader />;
 
   return (
@@ -53,13 +56,9 @@ export default function ProductDetailsDashboard() {
             <i className="fas fa-edit mr-1"></i>
             Edit Product
           </Link>
-          <button
-            onClick={handleDelete}
-            className="rounded-lg bg-red-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-          >
-            <i className="fas fa-trash mr-1"></i>
-            Delete Product
-          </button>
+          <Button color="red" onClick={handleDelete}>
+            Delete
+          </Button>
         </div>
       </div>
     </div>
