@@ -15,14 +15,19 @@ function Header() {
         <div className="flex md:order-2">
           <NavLink
             to="login"
-            className="hover:bg-cyan-700 p-3 rounded-md  hovertext-white font-semibold "
+            className="hover:bg-cyan-700 p-3 rounded-md dark:text-white hovertext-white font-semibold "
           >
             Admin Login
           </NavLink>
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <NavLink to="">Home</NavLink>
+          <NavLink
+            to=""
+            className="text-xl font-semibold tracking-tight dark:text-white"
+          >
+            Home
+          </NavLink>
 
           <NavLink to="cart">
             <svg
