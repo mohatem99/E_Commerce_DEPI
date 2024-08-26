@@ -20,7 +20,7 @@ const EditProduct = () => {
     const fetchProduct = async () => {
       try {
         const response = await api.get(`${id}`);
-        setPost(response.data);
+        setProduct(response.data);
       } catch (error) {
         console.error("Error fetching product:", error);
       } finally {

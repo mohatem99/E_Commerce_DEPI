@@ -13,28 +13,12 @@ export default function ProductDetailsDashboard() {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    const result = await Swal.fire({
-      title: "Are you sure?",
-      text: "This action cannot be undone!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "Cancel",
-    });
-    if (result.isConfirmed) {
+    if (window.confirm("Are you sure you want to delete this product?")) {
       try {
         await api.delete(`${id}`);
-        Swal.fire("Deleted!", "Your product has been deleted.", "success");
-        navigate("/admin-dashboard/products");
+        navigate("/admin-dashboard/products"); // Redirect to the products list
       } catch (error) {
         console.error("Error deleting product:", error);
-        Swal.fire(
-          "Error!",
-          "There was a problem deleting the product.",
-          "error"
-        );
       }
     }
   };
