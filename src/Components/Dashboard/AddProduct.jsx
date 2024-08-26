@@ -1,10 +1,113 @@
 import React, { useState } from "react";
-import { api } from "../../utils/axios";
+import {
+  Modal,
+  Button,
+  Label,
+  TextInput,
+  Select,
+  Textarea,
+} from "flowbite-react";
 
-export default function AddProduct() {
+function AddProduct({ isOpen, onClose, onAddProduct }) {
+  const [productData, setProductData] = useState({
+    name: "",
+    category: "",
+    brand: "",
+    price: "",
+    details: "",
+    image: null,
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProductData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    setProductData((prevData) => ({ ...prevData, image: file }));
+  };
+
+  const handleSubmit = () => {
+    onAddProduct(productData);
+    onClose();
+  };
+
   return (
-    <>
-      <div>Add Product</div>
-    </>
+    <Modal show={isOpen} onClose={onClose}>
+      <Modal.Header>Add product</Modal.Header>
+      <Modal.Body>
+        <div className="space-y-6">
+          <div>
+            <Label htmlFor="productName">Product Name</Label>
+            <TextInput
+              id="productName"
+              name="name"
+              value={productData.name}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+            <Label htmlFor="category">Category</Label>
+            <Select
+              id="category"
+              name="category"
+              value={productData.category}
+              onChange={handleInputChange}
+            >
+              <option value="">Select category</option>
+              <option value="Electronics">Electronics</option>
+              {/* Add more categories as needed */}
+            </Select>
+          </div>
+          <div>
+            <Label htmlFor="brand">Brand</Label>
+            <TextInput
+              id="brand"
+              name="brand"
+              value={productData.brand}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+            <Label htmlFor="price">Price</Label>
+            <TextInput
+              id="price"
+              name="price"
+              type="number"
+              value={productData.price}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+            <Label htmlFor="details">Product Details</Label>
+            <Textarea
+              id="details"
+              name="details"
+              value={productData.details}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div>
+            <Label htmlFor="image">Product Image</Label>
+            <input
+              type="file"
+              id="image"
+              name="image"
+              onChange={handleImageUpload}
+              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+            />
+          </div>
+        </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={handleSubmit}>Add product</Button>
+        <Button color="gray" onClick={onClose}>
+          Cancel
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 }
+
+export default AddProduct;

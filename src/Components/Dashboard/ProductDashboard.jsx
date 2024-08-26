@@ -5,38 +5,35 @@ import axios from "axios";
 import Loader from "../Loader/Loader";
 import { Link } from "react-router-dom";
 import AdminProductList from "./AdminProductList";
+import { Button } from "flowbite-react";
+import AddProduct from "./AddProduct";
 
 export default function ProductDashboard() {
   const { products, setProducts, loading } = useContext(ProductsContext);
-  const [newProduct, setNewProduct] = useState({
-    title: "",
-    price: "",
-    description: "",
-  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleEdit = (id) => {
     // Implement edit functionality
     console.log(`Edit product with id: ${id}`);
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete("https://dummyjson.com/products/${id}");
-      setProducts(products.filter((product) => product.id !== id));
-    } catch (error) {
-      console.error("Error deleting product:", error);
-    }
-  };
+  // const handleDelete = async (id) => {
+  //   try {
+  //     await axios.delete("https://dummyjson.com/products/${id}");
+  //     setProducts(products.filter((product) => product.id !== id));
+  //   } catch (error) {
+  //     console.error("Error deleting product:", error);
+  //   }
+  // };
 
-  const handleAddProduct = async (e) => {
-    e.preventDefault();
+  const handleAddProduct = async (newProduct) => {
     try {
       const { data } = await axios.post(
         "https://dummyjson.com/products/add",
         newProduct
       );
       setProducts([...products, data]);
-      setNewProduct({ title: "", price: "", description: "" });
+      setIsModalOpen(false);
     } catch (error) {
       console.error("Error adding product:", error);
     }
@@ -52,12 +49,13 @@ export default function ProductDashboard() {
         Products Dashboard
       </h1>
       <div className="flex justify-end mb-6">
-        <Link
-          to="add"
-          className="rounded-lg bg-cyan-800 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-cyan-900 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-700 dark:hover:bg-cyan-800 dark:focus:ring-cyan-900"
-        >
-          Add New Product
-        </Link>
+        <Button onClick={() => setIsModalOpen(true)}>Add New Product</Button>
+
+        <AddProduct
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onAddProduct={handleAddProduct}
+        />
       </div>
       {/* Products Table */}
       <div className="overflow-x-auto">
